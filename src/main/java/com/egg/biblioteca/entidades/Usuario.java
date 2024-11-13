@@ -15,6 +15,9 @@ public class Usuario {
     private String email;
     private String password;
 
+    @OneToOne
+    private Imagen imagen;
+
     @Enumerated(EnumType.STRING)
     private Rol rol;
 
@@ -59,5 +62,13 @@ public class Usuario {
 
     public void setRol(Rol rol) {
         this.rol = rol;
+    }
+
+    public Imagen getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(Imagen imagen) {
+        this.imagen = imagen;
     }
 }

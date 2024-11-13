@@ -1,10 +1,13 @@
 package com.egg.biblioteca.controladores;
 
 import com.egg.biblioteca.entidades.Autor;
+import com.egg.biblioteca.entidades.Usuario;
 import com.egg.biblioteca.excepciones.MiExcepcion;
 import com.egg.biblioteca.servicios.AutorServicio;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -14,17 +17,20 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Controller
+@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
 @RequestMapping("/autor")
 public class AutorControlador {
 
     @Autowired
     private AutorServicio autorServicio;
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/registrar")
-    public String registrar(){
+    public String registrar(HttpSession session){
         return "autor_form.html";
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @PostMapping("/registro")
     public String registro(@RequestParam String nombre, ModelMap modelo){
         try {
@@ -45,12 +51,14 @@ public class AutorControlador {
         return "autor_list.html";
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/modificar/{id}")
     public String modificar(@PathVariable String id, ModelMap model){
         model.put("autor", autorServicio.getOne(id) );
         return "autor_modificar.html";
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @PostMapping("/modificar/{id}")
     public String modificar(@PathVariable String id, String nombre, ModelMap model){
         try {

@@ -18,6 +18,7 @@ public class EditorialServicio {
     @Autowired
     private EditorialRepositorio editorialRepositorio;
 
+
     @Transactional
     public void crearEditorial(String nombre) throws MiExcepcion{
         validar(nombre);
