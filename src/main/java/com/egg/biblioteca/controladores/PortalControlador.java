@@ -87,11 +87,14 @@ public class PortalControlador {
     @PostMapping("/perfil/{id}")
     public String actualizar(MultipartFile archivo, @PathVariable String id, @RequestParam String nombre,
                              @RequestParam String email, @RequestParam String password, @RequestParam String password2,
-                             ModelMap model){
+                             ModelMap model, HttpSession session){
         try {
             usuarioServicio.actualizar(archivo, id, nombre, email, password, password2);
             model.put("exito", "Usuario actualizado correctamente");
-            return "inicio.html";
+
+            session.setAttribute("usuariosession", usuarioServicio.getOne(id));
+
+            return "redirect:../inicio";
         } catch (MiExcepcion e) {
 
             model.put("error", e.getMessage());
