@@ -1,8 +1,11 @@
 HELP.md
 ###target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
+###!.mvn/wrapper/maven-wrapper.jar
+###!**/src/main/**/target/
+###!**/src/test/**/target/
+
+target/biblioteca-0.0.1-SNAPSHOT.jar
+target/
 
 ### STS ###
 .apt_generated
